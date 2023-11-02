@@ -44,7 +44,7 @@ format:
     toc: true
     toc-location: left
     theme: 
-      light: united
+      light: quartz
       dark: minty
     css: styles.css
 
