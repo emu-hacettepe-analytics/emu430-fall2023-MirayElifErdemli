@@ -6,7 +6,7 @@ sidebar: false
 # Education
 
 -   B.S., Industrial Engineering, Hacettepe University, Turkey, 2018 - ongoing.
--   Ümitköy Anatolian High School, Turkey, 2017 - finished.
+-   Ümitköy Anatolian High School, Turkey, 2017 - finished
 
 # Work Experience
 
