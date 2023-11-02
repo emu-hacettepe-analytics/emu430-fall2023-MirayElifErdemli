@@ -9,4 +9,4 @@ sidebar: false
 
 ***Please stay tuned to follow my works on data analytics, blog posts, and more...***
 
-![](images/giphy.gif){width="307"}
+![](images/giphy.gif){width="330"}

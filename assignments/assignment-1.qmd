@@ -8,11 +8,11 @@ My first assignment has three parts.
 
 ## (b) Differences Between R and Python
 
-#### **1. Assignment Operation**
+### **1. Assignment Operation**
 
-The R program uses the" <- " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.
+The R program uses the" \<- " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.
 
-Some example of how to use the " <- " symbol in R program:
+Some example of how to use the " \<- " symbol in R program:
 
 ```{r}
 #Assign the value of the 1 to the variable 'apple'
@@ -36,7 +36,7 @@ apple +=  4
 print(apple)
 ```
 
-#### 2. Square Root Operation
+### 2. Square Root Operation
 
 Both examples achieve the same goal of calculating the square roots of the elements in a list. The difference is in the syntax and the specific functions used in each language.
 
@@ -73,7 +73,7 @@ print(square_roots)
 
 ```
 
-#### 3. Indexing
+### 3. Indexing
 
 In R, the indexing starts from 1. This code takes the 3rd, 4th, and 5th elements. The expected output is c d e. Unlike Python, R uses single-base indexing. This means the first element is at position 1. Additionally, R's slicing syntax includes both start and end indices. So "\[3:5\]" contains elements at indices 3, 4 and 5.
 
