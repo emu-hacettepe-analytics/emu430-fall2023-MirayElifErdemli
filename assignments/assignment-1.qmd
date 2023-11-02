@@ -2,12 +2,9 @@
 title: "Assignment 1"
 ---
 
-
 My first assignment has three parts.
 
 ## (a)
-
-
 
 ## (b) Differences Between R and Python
 
