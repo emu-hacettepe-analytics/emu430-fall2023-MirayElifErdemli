@@ -4,29 +4,17 @@ title: "Assignment 1"
 
 # Assignment 1
 
-
 My first assignment has three parts.
 
 ## (a)
 
+## (b) Differences Between R and Python
 
+#### **1. Assignment Operation**
 
+The R program uses the" \<- " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.
 
-
-
-
-
-
-## (b)
-
-### Differences Between R and Python 
-
-#### ** 1. Assignment Operation **
-
-
-The R program uses the" <- " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.
-
-Some example of how to use the " <- " symbol in R program:
+Some example of how to use the " \<- " symbol in R program:
 
 ```{r}
 #Assign the value of the 1 to the variable 'apple'
@@ -50,7 +38,7 @@ apple +=  4
 print(apple)
 ```
 
-#### ** 2. Square Root Operation in List **
+#### 2. Square Root Operation
 
 Both examples achieve the same goal of calculating the square roots of the elements in a list. The difference is in the syntax and the specific functions used in each language.
 
@@ -71,7 +59,7 @@ square_roots <- sapply(my_list, function(x) sqrt(x))
 
 Some example of how to use square root in Python program:
 
-``` {python}
+```{python}
 
 # Create a list with numeric elements
 my_list = [4, 9, 16, 25]
@@ -87,14 +75,13 @@ print(square_roots)
 
 ```
 
-#### ** 3. Indexing **
+#### 3. Indexing
 
-In R, the indexing starts from 1. This code takes the 3rd, 4th, and 5th elements. The expected output is c d e. Unlike Python, R uses single-base indexing. This means the first element is at position 1. Additionally, R's slicing syntax includes both start and end indices. So "[3:5]" contains elements at indices 3, 4 and 5.
-
+In R, the indexing starts from 1. This code takes the 3rd, 4th, and 5th elements. The expected output is c d e. Unlike Python, R uses single-base indexing. This means the first element is at position 1. Additionally, R's slicing syntax includes both start and end indices. So "\[3:5\]" contains elements at indices 3, 4 and 5.
 
 Some example of how to use indexing in R program:
 
-``` {r}
+```{r}
 
 # Create a vector
 currentline <- c("a", "b", "c", "d", "e", "f", "g")
@@ -105,11 +92,12 @@ slice <- currentline[3:5]
 slice
 
 ```
+
 In Python, the indexing starts from 0. This code takes the 4th and 5th characters (i.e., characters at indices 3 and 4) from the currentline string and prints them. The expected output is lo.
 
 Some example of how to use indexing in Python program:
 
-``` {python}
+```{python}
 
 # Create a string
 
@@ -126,8 +114,7 @@ slice
 
 ## (c)
 
-
-``` {r}
+```{r}
 library(dslabs)
 
 # Import the na_example data set
@@ -138,14 +125,14 @@ na_example
 
 ```
 
-
-``` {r}
+```{r}
 # Count the total number of NA values
 sum(is.na(na_example))
 
-````
 
-```` {r}
+```
+
+```{r}
 #Replace all n replace all NA values in the 0
 
 na_example_new <- na_example
@@ -156,10 +143,9 @@ na_example_new
 
 ```
 
-``` {r}
+```{r}
 # Count the total number of NA values in the new data frame
 sum(is.na(na_example_new))
 
 
 ```
-
