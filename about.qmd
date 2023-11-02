@@ -45,3 +45,5 @@ sidebar: false
 -   Photography
 
 # CV
+
+[Download as PDF](https://drive.google.com/file/d/18Auuipoy_nrIJYCovTRe5ygkAz9paZs7/view?usp=drive_link)
