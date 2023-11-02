@@ -22,11 +22,9 @@ website:
             
     tools:
       - icon: github
-        href: https://twitter.com
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/MirayElifErdemli
       - icon: linkedin
-        href: https://linkedin.com
+        href: https://www.linkedin.com/in/miray-elif-erdemli-0a48911a2/
 
   sidebar:
     - title: "Assignments"
