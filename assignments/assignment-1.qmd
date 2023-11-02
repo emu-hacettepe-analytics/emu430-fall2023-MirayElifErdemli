@@ -10,9 +10,9 @@ My first assignment has three parts.
 
 #### **1. Assignment Operation**
 
-The R program uses the" \<- " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.
+The R program uses the" <- " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.
 
-Some example of how to use the " \<- " symbol in R program:
+Some example of how to use the " <- " symbol in R program:
 
 ```{r}
 #Assign the value of the 1 to the variable 'apple'
@@ -23,9 +23,9 @@ apple <- apple + 4
 print(apple)
 ```
 
-The Python program uses the " = "symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.The R operator is more meaningful and easier than the Python operator. Additionally, the R operator is mathematically helpful in avoiding confusion.
+The Python program uses the " = " symbol to assign a value to a variable, create a new variable, or update the value of an existing variable.The R operator is more meaningful and easier than the Python operator. Additionally, the R operator is mathematically helpful in avoiding confusion.
 
-Some example of how to use the " = "symbol in Python program:
+Some example of how to use the " = " symbol in Python program:
 
 ```{python}
 #Assign the value of the 1 to the variable 'apple'
