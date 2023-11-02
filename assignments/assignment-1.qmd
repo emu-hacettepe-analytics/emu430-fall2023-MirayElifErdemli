@@ -4,7 +4,12 @@ title: "Assignment 1"
 
 My first assignment has three parts.
 
-## (a) A Brief Summary of RStudio Global 2022 Conference Talks
+## (a) Literate Programming With Jupyter Notebooks and Quarto
+
+[click the link](https://www.rstudio.com/conference/2022/talks/literate-programming-quarto/)
+
+Jupyter Notebooks are important for code documentation, idea prototypes, and technical communication. However, it may open the way for package developers using traditional optimization tools to migrate with Notebooks. Nbdev is a framework that makes developing Python libraries easy within Jupyter Notebooks. In this talk, Hamel describes the integration of Nbdev and Quarto. This integration allows developers to create documentation right next to their code and automatically create a Quarto website. As a result, it offers seamless business analytics for documenting and testing software packages across Jupyter Notebooks.
+
 
 ## (b) Differences Between R and Python
 
