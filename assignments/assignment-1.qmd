@@ -2,11 +2,12 @@
 title: "Assignment 1"
 ---
 
-# Assignment 1
 
 My first assignment has three parts.
 
 ## (a)
+
+
 
 ## (b) Differences Between R and Python
 
@@ -93,7 +94,7 @@ slice
 
 ```
 
-In Python, the indexing starts from 0. This code takes the 4th and 5th characters (i.e., characters at indices 3 and 4) from the currentline string and prints them. The expected output is lo.
+In Python, the indexing starts from 0. This code takes the 4th and 5th characters (i.e., characters at indices 3 and 4) from the currentline string and prints them. The expected output is " lo "
 
 Some example of how to use indexing in Python program:
 
