@@ -10,7 +10,6 @@ My first assignment has three partss.
 
 Jupyter Notebooks are important for code documentation, idea prototypes, and technical communication. However, it may open the way for package developers using traditional optimization tools to migrate with Notebooks. Nbdev is a framework that makes developing Python libraries easy within Jupyter Notebooks. In this talk, Hamel describes the integration of Nbdev and Quarto. This integration allows developers to create documentation right next to their code and automatically create a Quarto website. As a result, it offers seamless business analytics for documenting and testing software packages across Jupyter Notebooks.
 
-
 ## (b) Differences Between R and Python
 
 ### **1. Assignment Operation**
