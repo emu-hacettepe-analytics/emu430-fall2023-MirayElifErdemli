@@ -61,21 +61,7 @@ square_roots <- sapply(my_list, function(x) sqrt(x))
 
 Some example of how to use square root in Python program:
 
-```{python}
 
-# Create a list with numeric elements
-my_list = [4, 9, 16, 25]
-
-# Calculate the square roots using a list comprehension
-square_roots = [sqrt(x) for x in my_list]
-
-# Import the math module to use the sqrt function
-from math import sqrt
-
-# Print the results
-print(square_roots)
-
-```
 
 ### 3. Indexing
 
