@@ -2,7 +2,7 @@
 title: "Assignment 1"
 ---
 
-My first assignment has three parts.
+My first assignment has three partss.
 
 ## (a) Literate Programming With Jupyter Notebooks and Quarto
 
