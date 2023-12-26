@@ -2,11 +2,9 @@
 title: "Assignment 2"
 ---
 
-# Assignment 2
-
 ### Question 1
 
-> *Using the filters on https://m.imdb.com/search, list all Turkish movies with more than 2500 reviews, and save the URLs.*
+>*Using the filters on https://m.imdb.com/search, list all Turkish movies with more than 2500 reviews, and save the URLs.*
 
 ```{r}
 
@@ -18,7 +16,7 @@ print(urls)
 
 ### Question 2
 
-> *Start web scrapping to create a Data Frame with columns: Title, Year, Duration, Rating, Votes*
+>*Start web scrapping to create a Data Frame with columns: Title, Year, Duration, Rating, Votes*
 
 ```{r}
 
@@ -83,8 +81,7 @@ hour_duration <- as.numeric(hour_duration) * 60
 minute_duration <- sapply(str_split(duration, " "), function(x) ifelse(length(x) >= 2, sub("m", "", x[2]), ifelse(grepl("m", x[1], fixed = TRUE), sub("m", "", x[1]), 0)))
 minute_duration <- as.numeric(minute_duration)
 
-print(paste("Hour Duration:", hour_duration))
-print(paste("Minute Duration:", minute_duration))
+
   
 rating <- HTML %>% html_nodes(".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating")
 rating <- html_text(rating)
@@ -111,86 +108,136 @@ kable(head(df,10), caption = "Movies Dataframe")
 
 ### Question 3
 
-a)  *Arrange your data frame in descending order by Rating. Present the top 5 and bottom 5 movies based on user ratings. Have you watched any of these movies? Do you agree or disagree with their current IMDb Ratings?*
+a) > *Arrange your data frame in descending order by Rating. Present the top 5 and bottom 5 movies based on user ratings. Have you watched any of these movies? Do you agree or disagree with their current IMDb Ratings?*
+
 ```{r}
-movies_df <- movies_df[order(movies_df$movie_ratings, decreasing = TRUE),]
+df <- df[order(df$ratings, decreasing = TRUE),]
 ```
 
 #### Top 5 movies based on user user ratings
+
 ```{r}
 kable(head(df, 5), caption = "Top 5 Movies Based On User Ratings.")
 ```
+
 I cannot say that I agree with this list, which was created based on the points given by users. They are definitely enjoyable, entertaining and valuable movies. However, the events depicted in the films made by Yeşil Yeşil Çam are old and a bit exaggerated compared to today. I think there are better movies.
 
 #### Bottom 5 movies based on user ratings.
+
 ```{r}
 kable(tail(df, 5), caption = "Bottom 5 Movies Based On User Ratings.")
 ```
+
 To be honest, I haven't watched any of the movies in this list. So I can say I have no idea.
 
 b)  *Check the ratings of 2-3 of your favorite movies. What are their standings?*
 
-#####My favorite movies are : 
-1.[Aşk Tesadüfleri Sever](https://m.imdb.com/title/tt1807950/)
-2.[Kelebeliğin Rüyası](https://m.imdb.com/title/tt2608224/)
-3.[İncir Reçeli](https://m.imdb.com/title/tt1808197/)
+####My favorite movies are : 1.[Aşk Tesadüfleri Sever](https://m.imdb.com/title/tt1807950/) 2.[Kelebeliğin Rüyası](https://m.imdb.com/title/tt2608224/) 3.[İncir Reçeli](https://m.imdb.com/title/tt1808197/)
 
+\[**Aşk Tesadüfleri Sever**\]
 
-[**Aşk Tesadüfleri Sever**]
 ```{r}
 kable(df[df$titles == "Ask Tesadüfleri Sever",], caption = "Aşk Tesadüfleri Sever")
 sprintf("Rank of the *Aşk Tesadüfleri Sever* is %d", which(df$titles=="Ask Tesadüfleri Sever"))
 ```
 
-[**Kelebeğin Rüyası**]
+\[**Kelebeğin Rüyası**\]
+
 ```{r}
 kable(df[df$titles == "Kelebegin Rüyasi",], caption = "Kelebeğin Rüyası")
 sprintf("Rank of the *Kelebeğin Rüyası* is %d", which(df$titles=="Kelebegin Rüyasi"))
 ```
 
-[**İncir Reçeli**]
+\[**İncir Reçeli**\]
+
 ```{r}
 kable(df[df$titles == "Incir Reçeli",], caption = "İncir Reçeli")
 sprintf("Rank of the *İncir Reçeli* is %d", which(df$titles=="Incir Reçeli"))
 ```
 
-c)
-Scatter Plot
+c)  Scatter Plot
+
 ```{r}
-yearly_rating_scatter_plot <- ggplot(yearly_rating, aes(x=years, y=average_rating)) + geom_point()
 yearly_rating <- df %>% group_by(years) %>%
   summarise(average_rating = mean(ratings))
+yearly_rating_scatter_plot <- ggplot(yearly_rating, aes(x=years, y=average_rating)) + geom_point()
 
 print(yearly_rating_scatter_plot)
 
 ```
 
 Box Plot
+
 ```{r}
 yearly_rating_box_plot <- ggplot(df, aes(x=years, y=ratings, group=years)) + geom_boxplot()
 print(yearly_rating_box_plot)
 ```
 
 Number of Movies
+
 ```{r}
 
-yearly_count <- ggplot(yearly_movie_count, aes(x=years, y=number_of_movies)) + geom_point()
 yearly_movie_count <- df %>% group_by(years) %>%
   summarise(number_of_movies = n())
-
+yearly_count <- ggplot(yearly_movie_count, aes(x=years, y=number_of_movies)) + geom_point()
 yearly_count
 
 ```
 
-d) Correlation between Votes and Ratings.
+d)  Correlation between Votes and Ratings.
+
 ```{r}
 corr_vote = cor(df$ratings, df$votes)
 corr_vote
 ```
 
-e) Correlation between Duration and Ratings.
+e)  Correlation between Duration and Ratings.
+
 ```{r}
 corr_duration= cor(df$durations, df$ratings)
 corr_duration
 ```
+
 ### Question 4
+
+```{r}
+url = "https://www.imdb.com/search/title/?title_type=feature&groups=top_1000&country_of_origin=TR&count=250"
+name <- c()
+year <- c()
+
+HTML = read_html(url)
+
+title <- HTML %>% html_nodes('.ipc-title__text')
+title <- html_text(title)
+title <- tail(head(title,-1),-1)
+title <- str_split(title, " ", n=2)
+title <- unlist(lapply(title, function(x) {x[2]}))
+
+year <- HTML %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
+year <- html_text(year)
+year <- substr(year, 1, 4)
+year <- as.numeric(year)
+
+name <- append(name, title)
+year <- append(year, year)
+top1000_df <- data.frame(name, year)
+kable(top1000_df, caption = "Turkish movies in IMDB Top1000 without rating, duration and votes")
+```
+
+New data frame with Turkish movies in the top 1000 containing only the title and year.
+
+```{r}
+top1000_new_df<- merge(x=top1000_df, y=df,
+                           by.x=c("name", "year"),
+                           by.y=c("titles", "years"), all.x=TRUE)
+kable(top1000_new_df, caption = "Turkish movies in IMBD Top1000 with rating, duration and votes")
+```
+
+```{r}
+top1000_new_df <- top1000_new_df[order(top1000_new_df$ratings, decreasing = TRUE),]
+kable(top1000_new_df, caption = "Turkish movies in IMDB Top 1000 according to rankings.")
+```
+
+```{r}
+kable(head(df,11), caption = "Movies Dataframe")
+```
