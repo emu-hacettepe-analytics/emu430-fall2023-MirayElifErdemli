@@ -47,3 +47,17 @@ sidebar: false
 # CV
 
 [Download as PDF](https://drive.google.com/file/d/18Auuipoy_nrIJYCovTRe5ygkAz9paZs7/view?usp=drive_link)
+
+
+
+
+hour_duration <- str_split(duration, " ")
+  hour_duration <- sapply(hour_duration, function(x) ifelse(grepl("h", x[1], fixed = TRUE), x[1], 0))
+  hour_duration <- sub("h", "", hour_duration)
+  hour_duration <- as.numeric(hour_duration)
+  hour_duration <- hour_duration * 60
+  
+  minute_duration <- str_split(duration, " ")
+  minute_duration <- sapply(minute_duration, function(x) ifelse(length(x) >= 2, x[2], ifelse(grepl("m", x, fixed = TRUE), x[1], ifelse(grepl("m", x[1], fixed = TRUE), x[1],0))))
+  minute_duration <- sub("m", "", minute_duration)
+  minute_duration <- as.numeric(minute_duration)
