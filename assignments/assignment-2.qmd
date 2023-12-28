@@ -25,6 +25,7 @@ library(tidyverse)
 library(stringr)
 library(rvest)
 library(ggplot2)
+library(knitr)
 library(reshape2)
 
 
@@ -42,47 +43,51 @@ ratings <- c()
 votes <- c()
 
 for(url in urls){
-  html = read_html(url)
+  HTML = read_html(url)
   
-title <- html %>% html_nodes('.ipc-title__text')
+title <- HTML %>% html_nodes('.ipc-title__text')
 title <- html_text(title)
 title <- tail(head(title,-1),-1)
 title <- str_split(title, " ", n=2)
 title <- unlist(lapply(title, function(x) {x[2]}))
   
-year <- html %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
+year <- HTML %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
 year <- html_text(year)
 year <- substr(year, 1, 4)
 year <- as.numeric(year)
 
-rating <- html %>% html_nodes(".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating")
+rating <- HTML %>% html_nodes(".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating")
 rating <- html_text(rating)
 rating <- substr(rating, 1, 3)
 rating <- as.numeric(rating)
 
-vote <- html %>%
+vote <- HTML %>%
 html_node(".sc-53c98e73-0.kRnqtn") %>%
-html_text() %>%
-parse_number()
+    html_text() %>%
+    parse_number()
 
-duration <- html %>%
-html_nodes(".sc-1b7x5y9-6.gwfzJB.dli-watch-bar") %>%
-html_text() %>%
-str_extract_all("\\d+") %>%
-lapply(function(x) as.numeric(x)) %>%
-unlist() %>%
-sum()
+duration <- HTML %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
+  duration <- html_text(duration)
+  
+  hour <- str_extract(duration, "\\d+h") %>%
+    str_replace("h", "") %>%
+    as.numeric() %% 10
+  
+  total_duration <- hour * 60 + str_extract(duration, "\\d+m") %>%
+    str_replace("m", "") %>%
+    as.numeric()
+
   
 titles <- append(titles,title)
 years <- append(years, year)
-durations <- append(durations, duration)
+durations <- append(durations, total_duration)
 ratings <- append(ratings, rating)
 votes <- append(votes, vote)
   
 }
 
 df <- data.frame(titles, years, durations, ratings,votes)
-print(head(df,10))
+print(head(df,10), caption= "dataframe")
 ```
 
 ### Question 3
