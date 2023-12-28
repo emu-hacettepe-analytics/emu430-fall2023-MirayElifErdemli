@@ -322,30 +322,30 @@ The following object is masked from 'package:tidyr':
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>votes <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(url <span class="cf">in</span> urls){</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  HTML <span class="ot">=</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  html <span class="ot">=</span> <span class="fu">read_html</span>(url)</span>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> HTML <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">'.ipc-title__text'</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">'.ipc-title__text'</span>)</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">html_text</span>(title)</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">tail</span>(<span class="fu">head</span>(title,<span class="sc">-</span><span class="dv">1</span>),<span class="sc">-</span><span class="dv">1</span>)</span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">str_split</span>(title, <span class="st">" "</span>, <span class="at">n=</span><span class="dv">2</span>)</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(title, <span class="cf">function</span>(x) {x[<span class="dv">2</span>]}))</span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> HTML <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">".sc-43986a27-7.dBkaPT.dli-title-metadata"</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">".sc-43986a27-7.dBkaPT.dli-title-metadata"</span>)</span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">html_text</span>(year)</span>
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">substr</span>(year, <span class="dv">1</span>, <span class="dv">4</span>)</span>
 <span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(year)</span>
 <span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> HTML <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating"</span>)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating"</span>)</span>
 <span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> <span class="fu">html_text</span>(rating)</span>
 <span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> <span class="fu">substr</span>(rating, <span class="dv">1</span>, <span class="dv">3</span>)</span>
 <span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(rating)</span>
 <span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>vote <span class="ot">&lt;-</span> HTML <span class="sc">%&gt;%</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>vote <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span></span>
 <span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="fu">html_node</span>(<span class="st">".sc-53c98e73-0.kRnqtn"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">parse_number</span>()</span>
 <span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>duration <span class="ot">&lt;-</span> HTML <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">".sc-43986a27-7.dBkaPT.dli-title-metadata"</span>)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>duration <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">".sc-43986a27-7.dBkaPT.dli-title-metadata"</span>)</span>
 <span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>  duration <span class="ot">&lt;-</span> <span class="fu">html_text</span>(duration)</span>
 <span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>  hour <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(duration, <span class="st">"</span><span class="sc">\\</span><span class="st">d+h"</span>) <span class="sc">%&gt;%</span></span>
