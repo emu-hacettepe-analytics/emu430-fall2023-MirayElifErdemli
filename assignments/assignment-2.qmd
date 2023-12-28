@@ -1,5 +1,6 @@
 ---
 title: "Assignment 2"
+
 ---
 
 ### Question 1
@@ -24,8 +25,8 @@ library(tidyverse)
 library(stringr)
 library(rvest)
 library(ggplot2)
-library(knitr)
 library(reshape2)
+
 
 df <- data.frame(titles = character(),
                         years = numeric(),
@@ -41,69 +42,47 @@ ratings <- c()
 votes <- c()
 
 for(url in urls){
-  HTML = read_html(url)
+  html = read_html(url)
   
-title <- HTML %>% html_nodes('.ipc-title__text')
+title <- html %>% html_nodes('.ipc-title__text')
 title <- html_text(title)
 title <- tail(head(title,-1),-1)
 title <- str_split(title, " ", n=2)
 title <- unlist(lapply(title, function(x) {x[2]}))
   
-year <- HTML %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
+year <- html %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
 year <- html_text(year)
 year <- substr(year, 1, 4)
 year <- as.numeric(year)
-  
 
-duration_re<- HTML %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
-duration_re <- html_text(duration_re)
-duration <- c()
-
-for (string in duration_re) {
-  start_index <- 5
-  string_length <- str_length(string)
-
-  if (grepl("m", string, fixed = TRUE)) {
-    end_index <- regexpr("m", string)
-    result <- substr(string, start_index, end_index - 1)  
-    duration <- append(duration, result)
-  } else {
-    end_index <- regexpr("h", string)
-    result <- substr(string, start_index, end_index - 1)
-    duration <- append(duration, result)
-  }
-}
-
-hour_duration <- sapply(str_split(duration, " "), function(x) 
-  ifelse(grepl("h", x[1], fixed = TRUE), sub("h", "", x[1]), 0))
-hour_duration <- as.numeric(hour_duration) * 60
-
-minute_duration <- sapply(str_split(duration, " "), function(x) ifelse(length(x) >= 2, sub("m", "", x[2]), ifelse(grepl("m", x[1], fixed = TRUE), sub("m", "", x[1]), 0)))
-minute_duration <- as.numeric(minute_duration)
-
-
-  
-rating <- HTML %>% html_nodes(".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating")
+rating <- html %>% html_nodes(".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating")
 rating <- html_text(rating)
 rating <- substr(rating, 1, 3)
 rating <- as.numeric(rating)
-  
-vote <- HTML %>% html_nodes(".sc-53c98e73-0.kRnqtn")
-vote <- html_text(vote)
-vote <- sub("Votes", "" ,vote)
-vote <- sub(",", "", vote)
-vote <- as.numeric(vote)
+
+vote <- html %>%
+html_node(".sc-53c98e73-0.kRnqtn") %>%
+html_text() %>%
+parse_number()
+
+duration <- html %>%
+html_nodes(".sc-1b7x5y9-6.gwfzJB.dli-watch-bar") %>%
+html_text() %>%
+str_extract_all("\\d+") %>%
+lapply(function(x) as.numeric(x)) %>%
+unlist() %>%
+sum()
   
 titles <- append(titles,title)
 years <- append(years, year)
-durations <- append(durations, hour_duration+minute_duration)
+durations <- append(durations, duration)
 ratings <- append(ratings, rating)
 votes <- append(votes, vote)
   
 }
 
 df <- data.frame(titles, years, durations, ratings,votes)
-kable(head(df,10), caption = "Movies Dataframe")
+print(head(df,10))
 ```
 
 ### Question 3
@@ -117,7 +96,8 @@ df <- df[order(df$ratings, decreasing = TRUE),]
 #### Top 5 movies based on user user ratings
 
 ```{r}
-kable(head(df, 5), caption = "Top 5 Movies Based On User Ratings.")
+top5_movies <- head(df, 5)
+print(top5_movies)
 ```
 
 I cannot say that I agree with this list, which was created based on the points given by users. They are definitely enjoyable, entertaining and valuable movies. However, the events depicted in the films made by Yeşil Yeşil Çam are old and a bit exaggerated compared to today. I think there are better movies.
@@ -125,7 +105,8 @@ I cannot say that I agree with this list, which was created based on the points 
 #### Bottom 5 movies based on user ratings.
 
 ```{r}
-kable(tail(df, 5), caption = "Bottom 5 Movies Based On User Ratings.")
+bottom5_movies <- tail(df, 5)
+print(bottom5_movies)
 ```
 
 To be honest, I haven't watched any of the movies in this list. So I can say I have no idea.
@@ -137,21 +118,21 @@ b)  *Check the ratings of 2-3 of your favorite movies. What are their standings?
 \[**Aşk Tesadüfleri Sever**\]
 
 ```{r}
-kable(df[df$titles == "Ask Tesadüfleri Sever",], caption = "Aşk Tesadüfleri Sever")
+print(df[df$titles == "Ask Tesadüfleri Sever",], caption = "Aşk Tesadüfleri Sever")
 sprintf("Rank of the *Aşk Tesadüfleri Sever* is %d", which(df$titles=="Ask Tesadüfleri Sever"))
 ```
 
 \[**Kelebeğin Rüyası**\]
 
 ```{r}
-kable(df[df$titles == "Kelebegin Rüyasi",], caption = "Kelebeğin Rüyası")
+print(df[df$titles == "Kelebegin Rüyasi",], caption = "Kelebeğin Rüyası")
 sprintf("Rank of the *Kelebeğin Rüyası* is %d", which(df$titles=="Kelebegin Rüyasi"))
 ```
 
 \[**İncir Reçeli**\]
 
 ```{r}
-kable(df[df$titles == "Incir Reçeli",], caption = "İncir Reçeli")
+print(df[df$titles == "Incir Reçeli",], caption = "İncir Reçeli")
 sprintf("Rank of the *İncir Reçeli* is %d", which(df$titles=="Incir Reçeli"))
 ```
 
@@ -205,15 +186,15 @@ url = "https://www.imdb.com/search/title/?title_type=feature&groups=top_1000&cou
 name <- c()
 year <- c()
 
-HTML = read_html(url)
+html = read_html(url)
 
-title <- HTML %>% html_nodes('.ipc-title__text')
+title <- html %>% html_nodes('.ipc-title__text')
 title <- html_text(title)
 title <- tail(head(title,-1),-1)
 title <- str_split(title, " ", n=2)
 title <- unlist(lapply(title, function(x) {x[2]}))
 
-year <- HTML %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
+year <- html %>% html_nodes(".sc-43986a27-7.dBkaPT.dli-title-metadata")
 year <- html_text(year)
 year <- substr(year, 1, 4)
 year <- as.numeric(year)
@@ -221,7 +202,7 @@ year <- as.numeric(year)
 name <- append(name, title)
 year <- append(year, year)
 top1000_df <- data.frame(name, year)
-kable(top1000_df, caption = "Turkish movies in IMDB Top1000 without rating, duration and votes")
+print(top1000_df, caption = "Turkish movies in IMDB Top1000 without rating, duration and votes")
 ```
 
 New data frame with Turkish movies in the top 1000 containing only the title and year.
@@ -230,14 +211,14 @@ New data frame with Turkish movies in the top 1000 containing only the title and
 top1000_new_df<- merge(x=top1000_df, y=df,
                            by.x=c("name", "year"),
                            by.y=c("titles", "years"), all.x=TRUE)
-kable(top1000_new_df, caption = "Turkish movies in IMBD Top1000 with rating, duration and votes")
+print(top1000_new_df, caption = "Turkish movies in IMBD Top1000 with rating, duration and votes")
 ```
 
 ```{r}
 top1000_new_df <- top1000_new_df[order(top1000_new_df$ratings, decreasing = TRUE),]
-kable(top1000_new_df, caption = "Turkish movies in IMDB Top 1000 according to rankings.")
+print(top1000_new_df, caption = "Turkish movies in IMDB Top 1000 according to rankings.")
 ```
 
 ```{r}
-kable(head(df,11), caption = "Movies Dataframe")
+print(head(df,11), caption = "Movies Dataframe")
 ```
